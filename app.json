@@ -15,7 +15,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.visage",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true,
+          "NSExceptionAllowsInsecureHTTPLoads": true,
+          "NSRequiresCertificateTransparency": false,
+          "NSIncludesSubdomains": true
+        },
+        "NSAllowsArbitraryLoads" : true,
+        "NSExceptionDomains": {
+          "https://corner-ensure-leadership-turn.trycloudflare.com":{
+            "NSExceptionAllowsInsecureHTTPLoads": true,
+            "NSIncludesSubdomains": true
+          }
+        }
     },
     "android": {
       "adaptiveIcon": {
@@ -27,4 +42,5 @@
       "favicon": "./assets/favicon.png"
     }
   }
+}
 }
