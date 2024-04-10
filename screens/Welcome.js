@@ -26,36 +26,6 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Welcome = ({navigation, route}) => {
 
-    const [image, setImage] = useState("")
-
-
-    useEffect(() => {
-
-        const activateStream = async () => {
-
-            link_stream = ""
-
-            await getDoc(doc(db, "stream", "stream_link"))
-            .then((res) => res.data())
-            .then((link) => {
-                console.log('getting link ' + link['value'])
-                link_stream = link['value']
-            })
-
-            const socket = io(link_stream)
-            socket.on('connect', function () {
-                console.log('connected');
-                socket.on('client', function (value) {
-                    setImage(value)
-                    // setImage(btoa(String.fromCharCode(...new Uint8Array(value))))
-                });
-            });
-        };
-        
-        activateStream()
-
-    }, [])
-    
     const handleSignOut = async () => {
         var response = await signOut(auth)
         console.log(auth)

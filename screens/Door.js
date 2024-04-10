@@ -5,6 +5,7 @@ import { signOut, getAuth } from "@firebase/auth";
 import { getFirestore, collection, getDoc, doc } from "@firebase/firestore";
 import app from "../firebase";
 import { Image } from "react-native";
+import { io } from "socket.io-client";
 
 import {
   InnerContainer,
@@ -20,19 +21,27 @@ import {
 } from "./../components/styles";
 
 const Door = ({navigation, route}) => {
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
     const [image, setImage] = useState("");
+    //const [url, setURL] = useState("");
+
+    url = "http://visage-lock.local:8003";
 
     useEffect(() => {
       const activateStream = async () => {
-        link_stream = "";
-
+        link_stream = ''
+        
         await getDoc(doc(db, "stream", "stream_link"))
           .then((res) => res.data())
           .then((link) => {
-            console.log("getting link " + link["value"]);
             link_stream = link["value"];
+            console.log("getting link " + link["value"]);
+            //setURL(link["value"]);
           });
-
+        console.log(link_stream)
         const socket = io(link_stream);
         socket.on("connect", function () {
           console.log("connected");
@@ -46,12 +55,61 @@ const Door = ({navigation, route}) => {
       activateStream();
     }, []);
 
+    const lockDoor = async () => {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 'lock' : 'lock' }),
+        }; 
+        
+        try {
+            await fetch(`${url}/lock_door`, requestOptions).then((response) => {
+              response.json().then((data) => {
+                console.log(data["status"]);
+              });
+            });
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const unlockDoor = async () => {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 'lock' : 'unlock' }),
+        }; 
+        
+        try {
+            await fetch(`${url}/lock_door`, requestOptions).then((response) => {
+              response.json().then((data) => {
+                console.log(data["status"]);
+              });
+            });
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
-            <Image style={{width: 300, height: 300}} source={{uri: 'data:image/jpeg;base64, ' + image}}/>
-            <StyledButton onPress={() => {navigation.navigate('Welcome')}}>
-                <ButtonText>Home</ButtonText>
-            </StyledButton>
+        <StatusBar style="light" /> 
+            <InnerContainer>
+                <WelcomeContainer>
+                    <Image style={{width: 300, height: 300}} source={{uri: 'data:image/jpeg;base64, ' + image}}/>
+                    <StyledButton onPress={lockDoor}>
+                        <ButtonText>Lock Door</ButtonText>
+                    </StyledButton>
+                    <StyledButton onPress={unlockDoor}>
+                        <ButtonText>Unlock Door</ButtonText>
+                    </StyledButton>
+                    <StyledButton onPress={() => {navigation.navigate('Welcome')}}>
+                        <ButtonText>Home</ButtonText>
+                    </StyledButton>
+                </WelcomeContainer>
+            </InnerContainer>
         </>
         
     );
