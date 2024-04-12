@@ -26,7 +26,11 @@
         },
         "NSAllowsArbitraryLoads" : true,
         "NSExceptionDomains": {
-          "https://corner-ensure-leadership-turn.trycloudflare.com":{
+          "https://corner-ensure-leadership-turn.trycloudflare.com": {
+            "NSExceptionAllowsInsecureHTTPLoads": true,
+            "NSIncludesSubdomains": true
+          },
+          "http://127.0.0.1:8001": {
             "NSExceptionAllowsInsecureHTTPLoads": true,
             "NSIncludesSubdomains": true
           }

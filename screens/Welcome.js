@@ -43,14 +43,14 @@ const Welcome = ({navigation, route}) => {
                         <StyledFormArea> 
                             {<Avatar resizeMode="cover" source={require('./../assets/img1.png')} />}
                                 <Line />                                    
-                                    <StyledButton onPress={handleSignOut}>
-                                        <ButtonText>Logout</ButtonText>
-                                    </StyledButton>
-                                    <StyledButton onPress={() => {navigation.navigate('CameraPage')}}>
-                                        <ButtonText>Camera</ButtonText>
-                                    </StyledButton>
                                     <StyledButton onPress={() => {navigation.navigate('Door')}}>
                                         <ButtonText>Door Controls</ButtonText>
+                                    </StyledButton>
+                                    <StyledButton onPress={() => {navigation.navigate('Users')}}>
+                                        <ButtonText>Edit Users</ButtonText>
+                                    </StyledButton>
+                                    <StyledButton onPress={handleSignOut}>
+                                        <ButtonText>Logout</ButtonText>
                                     </StyledButton>
                         </StyledFormArea>
                 </WelcomeContainer>
