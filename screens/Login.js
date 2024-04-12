@@ -33,6 +33,7 @@ import {
     TextLinkContent
 } from './../components/styles';
 import { View } from 'react-native';
+import MyTextInput from '../components/MyTextInput';
 
 //Colors
 const {brand, darkLight, primary} = Colors;
@@ -123,21 +124,6 @@ const Login = ({navigation, route}) => {
             </StyledContainer>
         </KeyboardAvoidingWrapper>
     );
-};
-
-const MyTextInput = ({label, icon, isPassword, hidePassword, setHidePassword, ...props}) => {
-    return (<View>
-        <LeftIcon>
-            <Octicons name={icon} size={30} color={brand} />    
-        </LeftIcon>
-        <StyledInputLabel>{label}</StyledInputLabel>
-        <StyledTextInput {...props} />
-        {isPassword && (
-            <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-                <Ionicons name={hidePassword ? 'eye-off-outline' : 'eye-outline'} size={30} color={darkLight}/>
-            </RightIcon>
-        )}
-    </View>);
 };
 
 export default Login;
