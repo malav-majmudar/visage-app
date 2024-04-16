@@ -45,10 +45,13 @@ const CameraPage = ({ navigation }) => {
 
   const addUser = async (requestOptions) => {
     try {
-      await fetch(`http://192.168.1.180:8001/facial_recognition/add_user`, requestOptions).then((response) => {
+      await fetch(
+        `http://192.168.1.180:8001/facial_recognition/add_user`,
+        requestOptions
+      ).then((response) => {
         if (response.status === 201) {
-          console.log('Added User')
-           navigation.navigate("Welcome");
+          console.log("Added User");
+          navigation.navigate("Welcome");
         }
       });
     } catch (error) {
@@ -61,22 +64,22 @@ const CameraPage = ({ navigation }) => {
       <>
         <StatusBar style="light" />
         <View style={styles.container}>
+          <View style={styles.topControls}>
+            <Button
+              title="Cancel"
+              icon="cancel"
+              color="#f1f1f1"
+              onPress={() => {
+                navigation.navigate("Users");
+              }}
+            />
+          </View>
           {!image ? (
             <Camera
               style={styles.camera}
               type={Camera.Constants.Type.front}
               ref={cameraRef}
-            >
-              <View style={styles.topControls}>
-                <Button
-                  title="Cancel"
-                  icon="cancel"
-                  onPress={() => {
-                    navigation.navigate("Users");
-                  }}
-                />
-              </View>
-            </Camera>
+            ></Camera>
           ) : (
             <Image source={{ uri: image }} style={styles.camera} />
           )}
@@ -96,17 +99,18 @@ const CameraPage = ({ navigation }) => {
               >
                 <Button
                   title="Retake"
-                  onPress={() => setImage(null)}
                   icon="redo"
+                  color="#f1f1f1"
+                  onPress={() => setImage(null)}
                 />
                 <Button
-                  title="Cancel"
-                  icon="cancel"
+                  title="Use Photo"
+                  icon="check"
+                  color="#f1f1f1"
                   onPress={() => {
-                    navigation.navigate("Users");
+                    setNameInput(true);
                   }}
                 />
-                <Button title="Use Photo" icon="check" onPress={() => {setNameInput(true)}} />
               </View>
             </View>
           )}
@@ -128,23 +132,23 @@ const CameraPage = ({ navigation }) => {
                 const formData = new FormData();
                 formData.append("image", {
                   uri: image,
-                  type: 'image/jpeg',
-                  name: `${values.name}.jpg`
+                  type: "image/jpeg",
+                  name: `${values.name}.jpg`,
                 });
                 const jsonData = { name: `${values.name}` };
-                formData.append('json', {
-                  "string": JSON.stringify(jsonData),
-                  type: 'application/json'
-                })
+                formData.append("json", {
+                  string: JSON.stringify(jsonData),
+                  type: "application/json",
+                });
                 const requestOptions = {
                   method: "POST",
-                  headers: { "Content-Type": 'multipart/form-data'},
+                  headers: { "Content-Type": "multipart/form-data" },
                   body: formData,
                 };
                 console.log(image);
-                console.log(formData)
-                addUser(requestOptions)
-                
+                console.log(formData);
+                addUser(requestOptions);
+
                 // navigation.navigate('Welcome');
               }}
             >
@@ -162,10 +166,18 @@ const CameraPage = ({ navigation }) => {
                   <StyledButton onPress={handleSubmit}>
                     <ButtonText>Add User</ButtonText>
                   </StyledButton>
-                  <StyledButton onPress={() => {setNameInput(false)}}>
+                  <StyledButton
+                    onPress={() => {
+                      setNameInput(false);
+                    }}
+                  >
                     <ButtonText>Back</ButtonText>
                   </StyledButton>
-                  <StyledButton onPress={() => {navigation.navigate('Users')}}>
+                  <StyledButton
+                    onPress={() => {
+                      navigation.navigate("Users");
+                    }}
+                  >
                     <ButtonText>Cancel</ButtonText>
                   </StyledButton>
                 </StyledFormArea>
@@ -234,7 +246,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   topControls: {
-    flex: 0.06,
+    flex: 0.3,
     backgroundColor: "#000",
   },
 });

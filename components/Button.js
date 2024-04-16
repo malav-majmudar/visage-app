@@ -1,13 +1,34 @@
 import * as React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Button({ title, onPress, icon, color }) {
+export default function Button({ title, onPress, icon, color, iconFamily }) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
-      <MaterialIcons name={icon} size={28} color={color ? color : "#f1f1f1"} />
-      <Text style={styles.text}>{title}</Text>
+      {iconFamily ? (
+        <MaterialCommunityIcons
+          name={icon}
+          size={28}
+          color={color ? color : "#f1f1f1"}
+        />
+      ) : (
+        <MaterialIcons
+          name={icon}
+          size={28}
+          color={color ? color : "#f1f1f1"}
+        />
+      )}
+
+      <Text
+        style={{
+          fontSize: 16,
+          marginLeft: 10,
+          fontWeight: "bold",
+          color: color || "#f1f1f1",
+        }}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -22,7 +43,6 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     fontSize: 16,
-    color: "#f1f1f1",
     marginLeft: 10,
   },
 });
