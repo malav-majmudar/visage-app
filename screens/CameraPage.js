@@ -81,7 +81,7 @@ const CameraPage = ({ navigation }) => {
               ref={cameraRef}
             ></Camera>
           ) : (
-            <Image source={{ uri: image }} style={styles.camera} />
+            <Image source={{ uri: image }} style={styles.takenImage} />
           )}
         </View>
         <View style={styles.controls}>
@@ -224,6 +224,11 @@ const styles = StyleSheet.create({
   camera: {
     flex: 5,
     borderRadius: 20,
+  },
+  takenImage: {
+    flex: 5,
+    borderRadius: 20,
+    transform: [{ scaleX: -1 }],
   },
   buttonContainer: {
     flex: 1,

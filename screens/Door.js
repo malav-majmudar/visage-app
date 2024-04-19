@@ -19,6 +19,7 @@ import {
   WelcomeImage,
   Avatar,
 } from "./../components/styles";
+import Button from "../components/Button";
 
 const Door = ({navigation, route}) => {
 
@@ -94,24 +95,37 @@ const Door = ({navigation, route}) => {
     }
 
     return (
-        <>
-        <StatusBar style="light" /> 
-            <InnerContainer>
-                <WelcomeContainer>
-                    <Image style={{width: 300, height: 300}} source={{uri: 'data:image/jpeg;base64, ' + image}}/>
-                    <StyledButton onPress={lockDoor}>
-                        <ButtonText>Lock Door</ButtonText>
-                    </StyledButton>
-                    <StyledButton onPress={unlockDoor}>
-                        <ButtonText>Unlock Door</ButtonText>
-                    </StyledButton>
-                    <StyledButton onPress={() => {navigation.navigate('Welcome')}}>
-                        <ButtonText>Home</ButtonText>
-                    </StyledButton>
-                </WelcomeContainer>
-            </InnerContainer>
-        </>
-        
+      <>
+        <StatusBar style="light" />
+        <InnerContainer>
+          <WelcomeContainer>
+            <Image
+              style={{ width: 300, height: 300 }}
+              source={{ uri: "data:image/jpeg;base64, " + image }}
+            />
+            <Button
+              title="Lock Door"
+              icon="lock-outline"
+              color="#000000"
+              onPress={lockDoor}
+            />
+            <Button
+              title="Unlock Door"
+              icon="lock-open"
+              color="#000000"
+              onPress={unlockDoor}
+            />
+            <Button
+              title="Home"
+              icon="home"
+              color="#000000"
+              onPress={() => {
+                navigation.navigate("Welcome");
+              }}
+            />
+          </WelcomeContainer>
+        </InnerContainer>
+      </>
     );
 }
 

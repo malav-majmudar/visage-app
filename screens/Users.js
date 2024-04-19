@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Image, Text, View, Alert } from "react-native";
+import { Image, Text, View, Alert, StyleSheet } from "react-native";
 
 import {
   InnerContainer,
@@ -76,62 +76,91 @@ const Users = ({ navigation, route }) => {
       <StatusBar style="light" />
       <InnerContainer>
         <WelcomeContainer>
-          <View>
-            {edit ? (
-              <Button
-                title="Cancel Edit"
-                icon="edit-off"
-                color="#000000"
-                onPress={() => setEdit(false)}
-              />
-            ) : (
-              <Button
-                title="Edit"
-                icon="edit"
-                color="#000000"
-                onPress={() => setEdit(true)}
-              />
-            )}
-
+          {edit ? (
+            <Button
+              title="Cancel Edit"
+              icon="edit-off"
+              color="#000000"
+              onPress={() => setEdit(false)}
+            />
+          ) : (
+            <Button
+              title="Edit"
+              icon="edit"
+              color="#000000"
+              onPress={() => setEdit(true)}
+            />
+          )}
+          <View style={styles.container}>
             {Object.entries(users).map(([userName, userImage]) => (
               <View key={userName}>
+                <View style={styles.imageContainer}></View>
                 <Image
-                  style={{ width: 80, height: 80 }}
+                  style={styles.registeredFaces}
                   source={{ uri: "data:image/jpeg;base64, " + userImage }}
                 />
-                <Text>{userName}</Text>
-                {edit ? (
-                  <Button
-                    title="Delete"
-                    icon="trash-can"
-                    color="#000000"
-                    iconFamily="community"
-                    onPress={() => deleteUserAlert(userName)}
-                  />
-                ) : (
-                  <View></View>
-                )}
+                <View style={styles.textContainer}>
+                  <Text>{userName}</Text>
+                  {edit ? (
+                    <Button
+                      title="Delete"
+                      icon="trash-can"
+                      color="#000000"
+                      iconFamily="community"
+                      onPress={() => deleteUserAlert(userName)}
+                    />
+                  ) : (
+                    <View></View>
+                  )}
+                </View>
               </View>
             ))}
           </View>
-          <StyledButton
+          <Button
+            title="Add User"
+            icon="add-circle"
+            color="#000000"
             onPress={() => {
               navigation.navigate("CameraPage");
             }}
-          >
-            <ButtonText>Add User</ButtonText>
-          </StyledButton>
-          <StyledButton
+          />
+          <Button
+            title="Home"
+            icon="home"
+            color="#000000"
             onPress={() => {
               navigation.navigate("Welcome");
             }}
-          >
-            <ButtonText>Home</ButtonText>
-          </StyledButton>
+          />
         </WelcomeContainer>
       </InnerContainer>
     </>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageContainer: {
+    alignItems: "center",
+    margin: 10,
+  },
+  registeredFaces: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    marginRight: 10
+  },
+  imageName: {
+    marginTop: 5,
+  },
+  textContainer: {
+    marginTop: 10,
+    alignItems: "center",
+  },
+});
 export default Users;

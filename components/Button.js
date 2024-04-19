@@ -22,7 +22,7 @@ export default function Button({ title, onPress, icon, color, iconFamily }) {
       <Text
         style={{
           fontSize: 16,
-          marginLeft: 10,
+          marginLeft: 0,
           fontWeight: "bold",
           color: color || "#f1f1f1",
         }}
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     fontSize: 16,
-    marginLeft: 10,
+    marginLeft: 0,
   },
 });
