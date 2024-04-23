@@ -18,7 +18,7 @@ import {
 import Button from "../components/Button";
 
 const Users = ({ navigation, route }) => {
-  const url = "http://192.168.1.180:8001/facial_recognition";
+  const url = "http://192.168.1.211:8001/facial_recognition";
   const [users, setUsers] = useState({});
   const [edit, setEdit] = useState(false);
   useEffect(() => {
@@ -26,6 +26,7 @@ const Users = ({ navigation, route }) => {
       try {
         await fetch(`${url}/get_users`).then((response) => {
           response.json().then((data) => {
+            print(data)
             setUsers(data);
           });
         });
