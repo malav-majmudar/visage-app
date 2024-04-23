@@ -153,34 +153,36 @@ const CameraPage = ({ navigation }) => {
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <StyledFormArea>
-                  <MyTextInput
-                    label="Name"
-                    icon="ellipsis"
-                    placeholder="Enter User's Name"
-                    placeholderTextColor={darkLight}
-                    onChangeText={handleChange("name")}
-                    onBlur={handleBlur("name")}
-                    value={values.name}
-                  />
-                  <StyledButton onPress={handleSubmit}>
-                    <ButtonText>Add User</ButtonText>
-                  </StyledButton>
-                  <StyledButton
-                    onPress={() => {
-                      setNameInput(false);
-                    }}
-                  >
-                    <ButtonText>Back</ButtonText>
-                  </StyledButton>
-                  <StyledButton
-                    onPress={() => {
-                      navigation.navigate("Users");
-                    }}
-                  >
-                    <ButtonText>Cancel</ButtonText>
-                  </StyledButton>
-                </StyledFormArea>
+                <View style={styles.centered}>
+                  <StyledFormArea>
+                    <MyTextInput
+                      label="Name"
+                      icon="ellipsis"
+                      placeholder="Enter User's Name"
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("name")}
+                      onBlur={handleBlur("name")}
+                      value={values.name}
+                    />
+                    <StyledButton onPress={handleSubmit}>
+                      <ButtonText>Add User</ButtonText>
+                    </StyledButton>
+                    <StyledButton
+                      onPress={() => {
+                        setNameInput(false);
+                      }}
+                    >
+                      <ButtonText>Back</ButtonText>
+                    </StyledButton>
+                    <StyledButton
+                      onPress={() => {
+                        navigation.navigate("Users");
+                      }}
+                    >
+                      <ButtonText>Cancel</ButtonText>
+                    </StyledButton>
+                  </StyledFormArea>
+                </View>
               )}
             </Formik>
           </InnerContainer>
@@ -253,6 +255,12 @@ const styles = StyleSheet.create({
   topControls: {
     flex: 0.3,
     backgroundColor: "#000",
+  },
+  centered: {
+    marginTop: 100, 
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
