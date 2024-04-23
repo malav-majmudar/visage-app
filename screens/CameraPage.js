@@ -46,7 +46,7 @@ const CameraPage = ({ navigation }) => {
   const addUser = async (requestOptions) => {
     try {
       await fetch(
-        `http://192.168.1.180:8001/facial_recognition/add_user`,
+        `http://192.168.1.4:8001/facial_recognition/add_user`,
         requestOptions
       ).then((response) => {
         if (response.status === 201) {
